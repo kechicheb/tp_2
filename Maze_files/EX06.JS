@@ -4,44 +4,48 @@ window.onload = () => {
     if (element) return element;
     throw new Error(`Cannot find the element ${selector} `);
   };
+  let start = selectElement("#start");
   let status = true;
   let h2Status = selectElement("#status");
-  let youWin = document.createTextNode("   You win !");
-  let youLost = document.createTextNode("   You Lost");
-  let myStrong = document.createElement("strong");
 
-  function lost() {
-    let allBoundary = Array.from(document.querySelectorAll("#maze .boundary"));
-    for (let i = 0; i < allBoundary.length; i++) {
-      allBoundary[i].addEventListener("mouseover", () => {
-        for (let j = 0; j < allBoundary.length; j++) {
-          allBoundary[j].style.backgroundColor = "red";
-        }
-        myStrong.appendChild(youLost);
-        myStrong.style.color = "red";
-        h2Status.appendChild(myStrong);
-        h2Status.appendChild(myStrong);
-        status = false;
-      });
-    }
-  }
-  lost();
   let allBoundary = Array.from(document.querySelectorAll("#maze .boundary"));
-  let start = selectElement("#start");
   start.addEventListener("click", () => {
     allBoundary.forEach((e) => {
       e.style.backgroundColor = "#eeeeee";
     });
     status = true;
-  });
-  selectElement("#end").onmouseover = () => {
-    if (status == true) {
-      myStrong.appendChild(youWin);
-      myStrong.style.color = "green";
+    if (document.querySelector("#status strong")) {
+      selectElement("#status").innerHTML = 'Move your mouse over the "S" to begin.';
+    }
+    for (let i = 0; i < allBoundary.length; i++) {
+      allBoundary[i].addEventListener("mouseover", () => {
+        for (let j = 0; j < allBoundary.length; j++) {
+          allBoundary[j].style.backgroundColor = "red";
+        }
+
+        status = false;
+        textAlert(status);
+      });
+    }
+
+    selectElement("#end").onmouseover = () => {
+      textAlert(status);
+    };
+    function textAlert(status) {
+      if (document.querySelector("#status strong")) {
+        selectElement("#status strong").remove();
+      }
+      let myStrong = document.createElement("strong");
+      let myText;
+      if (status == true) {
+        myText = document.createTextNode("   You win !");
+        myStrong.style.color = "green";
+      } else {
+        myText = document.createTextNode("   You Lost");
+        myStrong.style.color = "red";
+      }
+      myStrong.appendChild(myText);
       h2Status.appendChild(myStrong);
     }
-  };
-  start.addEventListener("click", () => {
-    selectElement("#status strong").remove();
   });
 };
