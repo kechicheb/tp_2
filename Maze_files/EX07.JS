@@ -34,7 +34,7 @@ window.onload = () => {
   };
   
   
-  document.querySelectorAll("body *:not(:is(#maze,#end))").forEach((el) => {
+  document.querySelectorAll("body *:not(:is(#maze,#end,#start))").forEach((el) => {
     el.addEventListener("mouseover", () => {
       status = false;
       allBoundary.forEach((e) => {
