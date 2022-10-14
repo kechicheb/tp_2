@@ -17,6 +17,10 @@ window.onload = () => {
         for (let j = 0; j < allBoundary.length; j++) {
           allBoundary[j].style.backgroundColor = "red";
         }
+        myStrong.appendChild(youLost);
+        myStrong.style.color = "red";
+        h2Status.appendChild(myStrong);
+        h2Status.appendChild(myStrong);
         status = false;
       });
     }
@@ -34,11 +38,6 @@ window.onload = () => {
     if (status == true) {
       myStrong.appendChild(youWin);
       myStrong.style.color = "green";
-      h2Status.appendChild(myStrong);
-    } else {
-      myStrong.appendChild(youLost);
-      myStrong.style.color = "red";
-      h2Status.appendChild(myStrong);
       h2Status.appendChild(myStrong);
     }
   };
